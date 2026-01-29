@@ -134,7 +134,7 @@ module Miniswag
     def add_headers(request, metadata, openapi_spec, parameters)
       tuples = parameters
                .select { |p| p[:in] == :header }
-               .map { |p| [p[:name], @headers.fetch(p[:name].to_s, '').to_s] }
+               .map { |p| [p[:name], @params.fetch(p[:name].to_s, @headers.fetch(p[:name].to_s, '')).to_s] }
 
       produces = metadata[:operation][:produces] || openapi_spec[:produces]
       if produces
