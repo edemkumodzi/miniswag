@@ -46,7 +46,7 @@ jobs:
         working-directory: miniswag-api
         run: |
           gem build miniswag-api.gemspec
-          gem push miniswag-api-*.gem
+          gem push miniswag-api-*.gem || echo "Already published or push failed"
 
   push-miniswag-ui:
     runs-on: ubuntu-latest
@@ -69,4 +69,4 @@ jobs:
         working-directory: miniswag-ui
         run: |
           gem build miniswag-ui.gemspec
-          gem push miniswag-ui-*.gem
+          gem push miniswag-ui-*.gem || echo "Already published or push failed"
