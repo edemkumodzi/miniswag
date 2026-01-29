@@ -14,6 +14,14 @@ module Miniswag
       def miniswag_test_definitions
         @_miniswag_test_definitions || []
       end
+
+      # Ensure subclasses get their own context stack and definitions
+      def inherited(subclass)
+        super
+        subclass.instance_variable_set(:@_miniswag_context_stack, [])
+        subclass.instance_variable_set(:@_miniswag_test_definitions, [])
+        subclass.instance_variable_set(:@_miniswag_openapi_spec_name, nil)
+      end
     end
   end
 end
