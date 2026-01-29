@@ -40,10 +40,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ruby
-      - name: Push miniswag-api
-        uses: rubygems/release-gem@v1
-        with:
-          gem-directory: miniswag-api
+      - name: Configure trusted publisher
+        uses: rubygems/configure-rubygems-credentials@v1.0.0
+      - name: Build and push miniswag-api
+        working-directory: miniswag-api
+        run: |
+          gem build miniswag-api.gemspec
+          gem push miniswag-api-*.gem
 
   push-miniswag-ui:
     runs-on: ubuntu-latest
@@ -60,7 +63,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ruby
-      - name: Push miniswag-ui
-        uses: rubygems/release-gem@v1
-        with:
-          gem-directory: miniswag-ui
+      - name: Configure trusted publisher
+        uses: rubygems/configure-rubygems-credentials@v1.0.0
+      - name: Build and push miniswag-ui
+        working-directory: miniswag-ui
+        run: |
+          gem build miniswag-ui.gemspec
+          gem push miniswag-ui-*.gem

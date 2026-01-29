@@ -264,7 +264,11 @@ module Miniswag
       when Array
         obj.map { |v| deep_dup(v) }
       else
-        obj.duplicable? ? obj.dup : obj
+        begin
+          obj.dup
+        rescue TypeError
+          obj
+        end
       end
     end
   end
