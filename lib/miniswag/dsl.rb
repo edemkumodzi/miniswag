@@ -92,9 +92,9 @@ module Miniswag
 
     # ── Response block ──────────────────────────────────────────────────
 
-    def response(code, description, &block)
+    def response(code, description, **options, &block)
       ctx = {
-        response: { code: code, description: description },
+        response: { code: code, description: description }.merge(options),
         scope: :response,
         before_blocks: [],
         params_block: nil,
