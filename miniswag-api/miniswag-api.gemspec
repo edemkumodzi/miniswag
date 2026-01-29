@@ -4,7 +4,7 @@ $LOAD_PATH.push File.expand_path('lib', __dir__)
 
 Gem::Specification.new do |s|
   s.name        = 'miniswag-api'
-  s.version     = ENV['RUBYGEMS_VERSION'] || '0.1.0'
+  s.version     = ENV['RUBYGEMS_VERSION'] || '0.1.1'
   s.authors     = ['Edem Kumodzi']
   s.email       = ['edem@sika.io']
   s.homepage    = 'https://github.com/edemkumodzi/miniswag'
