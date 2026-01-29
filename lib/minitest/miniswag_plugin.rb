@@ -25,6 +25,7 @@ module Miniswag
       super
       return if errors > 0 || failures > 0
       return if Miniswag.registered_test_classes.empty?
+      return unless Miniswag.config.openapi_root && Miniswag.config.openapi_specs&.any?
 
       puts 'Miniswag: Generating OpenAPI specs...'
       require 'miniswag/openapi_generator'
