@@ -6,11 +6,8 @@ namespace :miniswag do
     pattern = ENV.fetch('PATTERN', 'test/integration/**/*_test.rb')
     additional_opts = ENV.fetch('ADDITIONAL_OPTS', '')
 
-    # Set the env var so the minitest plugin activates in the subprocess
-    ENV['MINISWAG_GENERATE'] = '1'
-
     # Run minitest with the matching pattern
-    # The openapi_helper is loaded by the test files themselves via require "openapi_helper"
+    # The miniswag plugin auto-generates specs after a green test run
     args = [
       'bin/rails', 'test',
       *Dir.glob(pattern),
