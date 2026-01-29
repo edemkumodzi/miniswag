@@ -224,6 +224,11 @@ module Miniswag
         validator = Miniswag::ResponseValidator.new
         validator.validate!(captured_metadata, response)
 
+        # Register a Minitest assertion so tests are not flagged as "missing assertions"
+        expected_code = captured_metadata[:response][:code].to_s
+        assert_equal expected_code, response.code,
+                     "Expected response code #{expected_code} but got #{response.code}"
+
         # Run user's additional assertions
         instance_exec(response, &user_block) if user_block
       end
