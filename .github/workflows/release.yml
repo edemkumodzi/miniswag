@@ -61,7 +61,10 @@ jobs:
         uses: rubygems/configure-rubygems-credentials@v1.0.0
       - name: Build and push miniswag-api
         working-directory: miniswag-api
+        env:
+          RUBYGEMS_VERSION: ${{ github.ref_name }}
         run: |
+          export RUBYGEMS_VERSION="${RUBYGEMS_VERSION#v}"
           gem build miniswag-api.gemspec
           gem push miniswag-api-*.gem || echo "Already published or push failed"
 
@@ -85,6 +88,9 @@ jobs:
         uses: rubygems/configure-rubygems-credentials@v1.0.0
       - name: Build and push miniswag-ui
         working-directory: miniswag-ui
+        env:
+          RUBYGEMS_VERSION: ${{ github.ref_name }}
         run: |
+          export RUBYGEMS_VERSION="${RUBYGEMS_VERSION#v}"
           gem build miniswag-ui.gemspec
           gem push miniswag-ui-*.gem || echo "Already published or push failed"

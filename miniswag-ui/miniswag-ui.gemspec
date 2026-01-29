@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     'rubygems_mfa_required' => 'true'
   }
 
-  s.files = Dir.glob('{lib,node_modules}/**/*') + %w[MIT-LICENSE]
+  s.files = Dir.glob('{lib,vendor}/**/*') + %w[MIT-LICENSE]
   s.require_paths = ['lib']
 
   s.required_ruby_version = '>= 3.1'

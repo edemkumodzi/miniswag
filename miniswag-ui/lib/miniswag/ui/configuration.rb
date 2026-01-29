@@ -17,7 +17,7 @@ module Miniswag
           # default location
           File.expand_path('index.erb', __dir__)
         ]
-        @assets_root = File.expand_path('../../../node_modules/swagger-ui-dist', __dir__)
+        @assets_root = File.expand_path('../../../vendor/swagger-ui-dist', __dir__)
         @config_object = {}
         @oauth_config_object = {}
         @basic_auth_enabled = false
