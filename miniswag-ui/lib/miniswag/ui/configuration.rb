@@ -6,7 +6,7 @@ module Miniswag
   module Ui
     class Configuration
       attr_reader :template_locations, :assets_root
-      attr_accessor :basic_auth_enabled, :config_object, :oauth_config_object
+      attr_accessor :basic_auth_enabled, :config_object, :oauth_config_object, :title
 
       def initialize
         @template_locations = [
@@ -21,6 +21,7 @@ module Miniswag
         @config_object = {}
         @oauth_config_object = {}
         @basic_auth_enabled = false
+        @title = 'Miniswag API Documentation'
       end
 
       def openapi_endpoint(url, name)
