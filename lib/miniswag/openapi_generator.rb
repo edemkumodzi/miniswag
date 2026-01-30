@@ -19,7 +19,7 @@ module Miniswag
       # Process all registered test class metadata
       Miniswag.registered_test_classes.each do |test_class|
         test_class.miniswag_test_definitions.each do |metadata|
-          next if metadata[:document] == false
+          next if metadata.dig(:response, :document) == false
           next unless metadata.key?(:response)
 
           openapi_spec = @config.get_openapi_spec(metadata[:openapi_spec])
@@ -61,7 +61,7 @@ module Miniswag
 
     def metadata_to_openapi(metadata)
       response_code = metadata[:response][:code]
-      response = metadata[:response].reject { |k, _v| k == :code }
+      response = metadata[:response].reject { |k, _v| %i[code document].include?(k) }
       verb = metadata[:operation][:verb]
       operation = metadata[:operation]
                   .reject { |k, _v| k == :verb }
