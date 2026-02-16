@@ -31,6 +31,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'actionpack', '>= 7.0', '< 9.0'
   s.add_dependency 'activesupport', '>= 7.0', '< 9.0'
   s.add_dependency 'json-schema', '>= 2.2', '< 7.0'
-  s.add_dependency 'minitest', '~> 5.0'
+  s.add_dependency 'minitest', '>= 5.0', '< 7.0'
   s.add_dependency 'railties', '>= 7.0', '< 9.0'
 end
