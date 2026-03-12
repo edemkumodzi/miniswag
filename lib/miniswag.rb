@@ -2,6 +2,7 @@
 
 require 'miniswag/version'
 require 'miniswag/configuration'
+require 'miniswag/test_case'
 require 'miniswag/railtie' if defined?(Rails::Railtie)
 
 module Miniswag
