@@ -29,14 +29,19 @@ bin/rails db:create db:migrate
 bin/rails server
 ```
 
-## Generate OpenAPI docs
+## Generate and view API documentation
 
 ```bash
 # Run miniswag tests and write docs/api/v1.yaml
 rake miniswag:swaggerize
+
+# Start the server
+bin/rails server
+
+# Open http://localhost:3000/api-docs to view the Swagger UI
 ```
 
-Then start the server and visit `/api-docs` to browse the Swagger UI.
+The Swagger UI will display the full API documentation generated from your tests.
 
 ## Run tests only (without generating docs)
 
