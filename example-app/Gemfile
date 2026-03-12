@@ -52,12 +52,9 @@ group :test do
 end
 
 # miniswag gems — the whole point of this example app
-gem "miniswag-api"
-gem "miniswag-ui"
-
-group :test do
-  gem "miniswag"
-end
+gem "miniswag", path: ".."
+gem "miniswag-api", path: ".."
+gem "miniswag-ui", path: ".."
 
 group :development, :test do
   gem "debug", platforms: %i[mri mswin mswin64 mingw x64_mingw]

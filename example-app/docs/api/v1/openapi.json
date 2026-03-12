@@ -1,0 +1,342 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Todo API",
+    "version": "v1",
+    "description": "A simple Todo API for managing tasks"
+  },
+  "paths": {
+    "/api/v1/todos": {
+      "parameters": [],
+      "get": {
+        "summary": "List all todos",
+        "parameters": [
+          {
+            "name": "completed",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "description": "Filter todos by completion status"
+          }
+        ],
+        "tags": [
+          "Todos"
+        ],
+        "operationId": "listTodos",
+        "description": "Returns a list of all todos. Optionally filter by completion status.",
+        "responses": {
+          "200": {
+            "description": "filtered by completed=false",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Todo"
+                  }
+                }
+              }
+            },
+            "focus": true
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a todo",
+        "parameters": [],
+        "tags": [
+          "Todos"
+        ],
+        "operationId": "createTodo",
+        "description": "Creates a new todo item",
+        "responses": {
+          "201": {
+            "description": "todo created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "missing todo parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "todo": {
+                    "$ref": "#/components/schemas/TodoInput"
+                  }
+                },
+                "required": [
+                  "todo"
+                ]
+              },
+              "examples": {
+                "0": {
+                  "summary": "Create a new todo",
+                  "value": {
+                    "todo": {
+                      "title": "New task",
+                      "completed": false
+                    }
+                  }
+                },
+                "1": {
+                  "summary": "Create a completed todo",
+                  "value": {
+                    "todo": {
+                      "title": "Completed task",
+                      "completed": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/todos/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Todo ID",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get a todo",
+        "parameters": [],
+        "tags": [
+          "Todos"
+        ],
+        "operationId": "getTodo",
+        "description": "Returns a single todo by ID",
+        "responses": {
+          "200": {
+            "description": "successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "todo not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a todo",
+        "parameters": [],
+        "tags": [
+          "Todos"
+        ],
+        "operationId": "updateTodo",
+        "description": "Updates an existing todo",
+        "responses": {
+          "200": {
+            "description": "successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "todo not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "todo": {
+                    "$ref": "#/components/schemas/TodoInput"
+                  }
+                }
+              },
+              "examples": {
+                "0": {
+                  "summary": "Update todo title",
+                  "value": {
+                    "todo": {
+                      "title": "Updated title"
+                    }
+                  }
+                },
+                "1": {
+                  "summary": "Mark todo as completed",
+                  "value": {
+                    "todo": {
+                      "completed": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a todo",
+        "parameters": [],
+        "tags": [
+          "Todos"
+        ],
+        "operationId": "deleteTodo",
+        "description": "Deletes a todo item",
+        "responses": {
+          "204": {
+            "description": "successful"
+          },
+          "404": {
+            "description": "todo not found"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Todo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "completed",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "TodoInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "errors"
+        ]
+      },
+      "NotFoundError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  }
+}
