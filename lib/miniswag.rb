@@ -2,7 +2,9 @@
 
 require 'miniswag/version'
 require 'miniswag/configuration'
-require 'miniswag/test_case'
+# NOTE: miniswag/test_case is loaded by the Railtie once ActionController has
+# booted. It cannot be required here because action_dispatch/testing/integration
+# depends on the full Rails testing stack and is unavailable outside a Rails app.
 require 'miniswag/railtie' if defined?(Rails::Railtie)
 
 module Miniswag
